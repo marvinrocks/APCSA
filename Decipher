@@ -1,0 +1,63 @@
+public class Decipher{
+    private String[] alphabet = {"a","b","c","d","e","f","g","h","i","j","k","l","m","n",
+        "o","p","q","r","s","t","u","v","w","x","y","z",".",",",":","\"","'","!","?","@",
+        "-",";","(",")","=","1","2","3","4","5","6","7","8","9","0","/"};
+    private String[] morse = {".-","-...","-.-.","-..",".","..-.","--.","....","..",
+        ".---","-.-",".-..","--","-.","---",".--.","--.-",".-.","...","-","..-","...-",
+        ".--","-..-","-.--","--..",".-.-.-","--..--","---...",".-..-.",".----.","-.-.--",
+        "..--..",".--.-.","-....-","-.-.-.","-.--.","-.--.-","-...-",".----","..---",
+        "...--","....-",".....","-....","--...","---..","----.","-----","......"};
+    private char[] morsechar = {'R', 'O', 'U', 'N', 'D', 'T', 'A', 'B', 'L', 'E', 
+        'C', 'F', 'G', 'H', 'I', 'J', 'K', 'M', 'P', 'Q', 'S', 'V', 'W', 'X', 'Y',
+        'Z'};
+    private String[] morseblocks = {"...","..-","..x",".-.",".--",".-x",".x.",".x-",
+        ".xx","-..","-.-","-.x","--.","---","--x","-x.","-x-","-xx","x..","x.-","x.x",
+        "x-.","x--","x-x","xx.","xx-"};
+   
+    public Decipher()
+    {}
+    
+    public String Decipher(String input){
+        String[] morseblock = new String[input.length()];
+        for (int g = 0; g < input.length(); g++){
+            for (int h = 0; h < morsechar.length; h++){
+                if (input.charAt(g) == (morsechar[h])){
+                    morseblock[g] = morseblocks[h];
+                }
+            }
+        }
+        
+        StringBuilder builder = new StringBuilder();
+        for(String str : morseblock) {
+            builder.append(str);
+        }
+        
+        String str = builder.toString();
+        
+        String[] parts = str.split("x");
+        
+        for (int z = 0; z < parts.length; z++) {
+            int hi = 0;
+            for (int p = 0; p < 50; p++){
+                if (parts[z].equals(morse[p])){
+                    parts[z] = alphabet[p];
+                    hi = 0;
+                    break;
+                }
+                else {
+                    hi = 1;
+                }
+            }
+            if (hi == 1) {
+                parts[z] = " ";
+            }
+        }
+        
+        StringBuilder build = new StringBuilder();
+        for(String s : parts) {
+            build.append(s);
+        }
+        String s = build.toString();
+        return s;
+    }
+}

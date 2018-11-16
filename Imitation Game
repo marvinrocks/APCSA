@@ -1,0 +1,14 @@
+import java.util.Scanner;
+
+public class ImitationGame{
+    public static void main(String[] args){
+        System.out.println("Enter anything");
+        Scanner scanner = new Scanner(System.in);
+        String input = scanner.nextLine().toLowerCase();
+        Cipher test = new Cipher();
+        System.out.println(test.Cipher(input));
+        Decipher test2 = new Decipher();
+        String decryptut = scanner.nextLine();
+        System.out.println(test2.Decipher(decryptut));
+    }
+}

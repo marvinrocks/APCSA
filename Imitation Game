@@ -2,13 +2,24 @@ import java.util.Scanner;
 
 public class ImitationGame{
     public static void main(String[] args){
-        System.out.println("Enter anything");
+        System.out.println("E or D or I don't wanna do anything");
         Scanner scanner = new Scanner(System.in);
-        String input = scanner.nextLine().toLowerCase();
-        Cipher test = new Cipher();
-        System.out.println(test.Cipher(input));
-        Decipher test2 = new Decipher();
-        String decryptut = scanner.nextLine();
-        System.out.println(test2.Decipher(decryptut));
+        String whichone = scanner.nextLine().toLowerCase();
+        int hi = 0;
+        while (hi == 0){
+            if (whichone.equals("E")){
+                Cipher test = new Cipher();
+                String input = scanner.nextLine().toLowerCase();
+                System.out.println(test.Cipher(input));
+            }
+            else if (whichone.equals("D")){
+                Decipher test2 = new Decipher();
+                String decryptut = scanner.nextLine().toLowerCase();
+                System.out.println(test2.Decipher(decryptut));
+            }
+            else{
+                hi = 1;
+            }
+       }
     }
 }

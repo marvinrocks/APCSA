@@ -1,0 +1,121 @@
+public class Cipher{
+    // instance variables - replace the example below with your own
+    private char[] alphabet = {'a','b','c','d','e','f','g','h','i','j','k','l','m','n',
+        'o','p','q','r','s','t','u','v','w','x','y','z','.',',',':','"','\'','!','?','@',
+        '-',';','(',')','=','1','2','3','4','5','6','7','8','9','0','/'}; // alphabet key
+    private String[] morse = {".-","-...","-.-.","-..",".","..-.","--.","....","..",
+        ".---","-.-",".-..","--","-.","---",".--.","--.-",".-.","...","-","..-","...-",
+        ".--","-..-","-.--","--..",".-.-.-","--..--","---...",".-..-.",".----.","-.-.--",
+        "..--..",".--.-.","-....-","-.-.-.","-.--.","-.--.-","-...-",".----","..---",
+        "...--","....-",".....","-....","--...","---..","----.","-----","......"}; //morse key
+    private String[] morsechar = {"R", "O", "U", "N", "D", "T", "A", "B", "L", "E", 
+        "C", "F", "G", "H", "I", "J", "K", "M", "P", "Q", "S", "V", "W", "X", "Y",
+        "Z"}; //encrypted alphabet key
+    private String[] morseblocks = {"...","..-","..x",".-.",".--",".-x",".x.",".x-",
+        ".xx","-..","-.-","-.x","--.","---","--x","-x.","-x-","-xx","x..","x.-","x.x",
+        "x-.","x--","x-x","xx.","xx-"}; //encrypted morse key
+    /**
+     * Constructor for objects of class Cipher
+     */
+    public Cipher()
+    {
+        
+    }
+
+    /**
+     * An example of a method - replace this comment with your own
+     *
+     * @param  y  a sample parameter for a method
+     * @return    the sum of x and y
+     */
+    public String Cipher(String userinput){
+        String[] input = new String[userinput.length()]; 
+        //creates new arraylist to store morse code
+        for (int i = 0; i < userinput.length() - 1; i++){ 
+            //goes through each letter in the input
+            for (int f = 0; f < 50; f++) { //goes through each letter/symbol
+                if ((' ') == (userinput.charAt(i))){ 
+                    /*checks to see if a space is present, if so replaces that
+                    element with "x"*/
+                    input[i] = "x";
+                }
+                
+                else if (alphabet[f] == (userinput.charAt(i))){
+                    /* checks each letter in alphabet, if matches then replaces
+                    corresponding element in the list with it's morse code and an 
+                    "x" */
+                    input[i] = morse[f] + "x";
+                }
+            }
+        }
+        
+        for (int f = 0; f < 50; f++) {
+                /*code for checking last letter in the inputted String. Don't want to add x 
+                   * to the end of the last morse code letter.*/
+                if ((' ') == (userinput.charAt(userinput.length()-1))){
+                    input[userinput.length()-1] = "x";
+                }
+                
+                else if (alphabet[f] == (userinput.charAt(userinput.length()-1))){
+                    input[userinput.length()-1] = morse[f];
+                }
+                
+            }
+            
+        StringBuilder builder = new StringBuilder(); 
+        ///modifies strings without creating object
+        for(String str : input) { //Goes through all elements of the input list
+            builder.append(str); //appends those elements to the stringbuilder
+        }
+        
+        String str = builder.toString(); //creates a string from the string builder
+        
+        int divisiblebythree = 0; //binary boolean system
+        while (divisiblebythree == 0){ 
+            /*checks to see if the number of characters in the string is 
+            divisible by three */
+            if ((str.length() % 3) != 0){ //if not then adds an x
+                str = str + "x";
+            }
+            else if ((str.length() % 3) == 0){ //does this until it is divisible
+                divisiblebythree = 1;
+            }
+        }
+        
+        String[] blockmorse = new String[str.length()/3]; 
+        /*new list to hold the blocks of three morse code. is str.length()/3 because
+        it gives the amount of elements the array list should hold */
+        for (int i = 0; i < str.length()/3; i++){ 
+            /*the code splits the string into substrings and stores them as 
+            elements in the arraylist. Each substring is three morse symbols long
+            ergo, it is a block of morse code */
+            String block = str.substring(i*3,i*3+3);
+            blockmorse[i] = block;
+        }
+        
+        String[] encryptedcode = new String[str.length()/3]; 
+        //creates array for the encrypted letters
+        for (int g = 0; g < blockmorse.length; g++){
+            //goes through our array lists of blocks of morse code
+            for (int h = 0; h < morseblocks.length; h++){
+                //goes through our key for the blocks of morse code
+                if (blockmorse[g].equals(morseblocks[h])){
+                    /*if they match then replaces the element in the encryptedcode
+                    list with the corresponding letter from the key*/
+                    encryptedcode[g] = morsechar[h];
+                }
+            }
+        }
+        
+        
+        StringBuilder build = new StringBuilder();
+        for(String s : encryptedcode) {
+            build.append(s);
+        }
+        String s = build.toString();
+        //creates new string and returns it
+        return s;
+        
+    }
+}
+
